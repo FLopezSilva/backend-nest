@@ -9,7 +9,7 @@ getHelloChino(): string {
     return 'ni hao ma';
   }
   getHelloPeruano(): string {
-    return 'hola causa';
+    return 'saludos desde lima peru';
   }
 
 }
