@@ -12,6 +12,9 @@ export class AppController {
   @Get('nihao')
   getHelloChino(): string {
     return this.appService.getHelloChino();
+  }  @Get('holape')
+  getHelloPeruano(): string {
+    return this.appService.getHelloPeruano();
   }
 
 }

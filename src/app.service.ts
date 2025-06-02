@@ -8,6 +8,10 @@ export class AppService {
 getHelloChino(): string {
     return 'ni hao ma';
   }
+  getHelloPeruano(): string {
+    return 'hola causa';
+  }
+
 }
 
 
