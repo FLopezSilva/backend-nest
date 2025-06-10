@@ -22,4 +22,12 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect('Hello World!');
   });
+
+  it('/operaciones (GET)', () => {
+    return request(app.getHttpServer())
+    .get('/operaciones')
+    .expect(200)
+    .query({operacion: 'suma' , a: 10, b:30})
+    .expect('Content-Type', /application\/json/)
+  })
 });
