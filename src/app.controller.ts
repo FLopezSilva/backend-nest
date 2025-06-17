@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { DbManagerService } from './db-manager/db-manager.service';
 
@@ -21,10 +21,10 @@ export class AppController {
     return this.appService.getHelloPeruano();
   }
 
-    @Get('user')
-    getUser(id: number){
-      return this.dbManager.getUser(id);
-    }
+  @Get('user')
+  getUser(@Query('id') id: number) {
+    return this.dbManager.getUser(id);
+  }
   
 
 }

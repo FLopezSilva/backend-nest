@@ -1,24 +1,28 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, Res } from '@nestjs/common';
 import { OperacionesService } from './operaciones.service';
+import { Response } from 'express';
 
 @Controller('operaciones')
 export class OperacionesController {
+  constructor(private readonly operService: OperacionesService) {}
 
-    constructor(private readonly openService: OperacionesService){}
+  @Get()
+  operar(
+    @Res() res: Response,
+    @Query('operacion') operacion: string,
+    @Query('a') a: number,
+    @Query('b') b: number,
+  ) {
+    const calculo = this.operService.operar(operacion, +a, +b);
 
-    @Get()
-    operar(
-        @Query('operacion') operacion: string,
-        @Query('a') a: number,
-        @Query('b') b: number
-    ):{resultado: number, mensaje: string}
-    {
-       const calculo = this.openService.operar(operacion, +a , +b);
-       if (calculo){
-        return {resultado: calculo , mensaje: 'Operacion Exitosa'}
-       }
-       return {resultado: NaN , mensaje : 'Operacion no pudo  ser calculada'}
-
+    if (calculo) {
+      return res
+        .status(200)
+        .json({ resultado: calculo, mensaje: 'operacion exitosa' });
     }
-    
+
+    return res
+      .status(502)
+      .json({ resultado: NaN, mensaje: 'operacion no pudo ser calculada' });
+  }
 }
