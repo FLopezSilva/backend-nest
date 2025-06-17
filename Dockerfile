@@ -10,7 +10,7 @@ RUN npm install
 RUN npm run build 
 
 
-FROM node:22 as etapa-dos
+FROM node:22-alpine as etapa-dos
 
 WORKDIR /usr/app
 
