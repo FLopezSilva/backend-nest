@@ -45,12 +45,14 @@ pipeline {
         }
         stage ("build y push de imagen docker"){
             steps{
-                docker.withRegistry("${registry}", registryCredentials){
+                script {
+                    docker.withRegistry("${registry}", registryCredentials){
                     sh "docker build -t backend-nest-fls ."
                     sh "docker tag backend-nest-fls ${dockerImageName}/backend-nest-fls"
                     sh "docker push ${dockerImageName}/backend-nest-fls"
-                 
+                    }
                 }
+               
             }
         }
     }
