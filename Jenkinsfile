@@ -1,9 +1,9 @@
 pipeline {
-    agent any 
-
+    agent any
+    // escenarios -> escenario -> pasos
     stages{
-        stage{
-            steps{
+        stage ("saludo a usuario") {
+            steps {
                 sh 'npm ci'
             }
         }
