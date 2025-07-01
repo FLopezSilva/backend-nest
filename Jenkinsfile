@@ -49,10 +49,25 @@ pipeline {
                     docker.withRegistry("${registry}", registryCredentials){
                     sh "docker build -t backend-nest-fls ."
                     sh "docker tag backend-nest-fls ${dockerImageName}/backend-nest-fls"
+                    sh "docker tag backend-nest-fls ${dockerImageName}/backend-nest-fls:${BUILD_NUMBER}"
                     sh "docker push ${dockerImageName}/backend-nest-fls"
+                    sh "docker push ${dockerImageName}/backend-nest-fls:${BUILD_NUMBER}"
                     }
                 }
                
+            }
+        }
+        stage ("actualiza kubernets"){
+            agent {
+                docker {
+                    iamge 'alpine/k8s:1.30.2'
+                    reuseNode true
+                }
+            }
+            steps {
+                withKubeConfig([credentialsId: 'gcp=kubeconfig']){
+                    sh "kubectl -n lab-fls set image deployments/backend-nest-fls backend-nest-fls=${dockerImageNam}/backend-nest-fls:${BUILD_NUMBER}"
+                }
             }
         }
     }
