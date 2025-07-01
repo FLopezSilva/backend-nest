@@ -60,7 +60,7 @@ pipeline {
         stage ("actualiza kubernets"){
             agent {
                 docker {
-                    iamge 'alpine/k8s:1.30.2'
+                    image 'alpine/k8s:1.30.2'
                     reuseNode true
                 }
             }
